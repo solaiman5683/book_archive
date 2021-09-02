@@ -1,3 +1,4 @@
+//Loading Data from API
 const loadData = () => {
     const search = document.getElementById('search');
     toggleSpinner('block');
@@ -8,6 +9,8 @@ const loadData = () => {
 
     search.value = ""
 }
+
+// Display Data to DOM loaded from API
 const displayData = (books, totalFound) => {
     const container = document.getElementById('container');
     container.textContent = ""
@@ -15,12 +18,12 @@ const displayData = (books, totalFound) => {
     number.innerHTML = `
             <h2 class="text-center text-light py-2 my-3 bg-dark">Showing ${books.length} books from total: ${totalFound}</h2>
         `
-    books.forEach(book => {
+    books.forEach(book => { // access each book from books array.
         console.log(book);
         const div = document.createElement('div');
-        const cover = `${!book.cover_i ? 'placeholder.png' : `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}`
+        //Cover image url.
+        const cover = `${(book.cover_i === undefined) ? 'placeholder.png' : `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`}`
         div.classList.add('col');
-        // ${!book.author_name ? "Author Name Is Not Given" : book.author_name[0]}
         div.innerHTML = `
             <div class="card h-100">
                 <img src="${cover}" class="card-img-top">
@@ -34,12 +37,13 @@ const displayData = (books, totalFound) => {
         `
         container.appendChild(div)
     });
+    // Adding Display action 
     toggleSpinner('none');
     toggleResult('block');
 };
 
+// Adding a loading spinner.
 const toggleSpinner = (displayStatus) => {
-    // document.getElementById('spinner').style.display = displayStatus + '!important';
     const spinner = document.getElementById('spinner');
     if (displayStatus === 'block') {
         spinner.classList.add('d-block');
@@ -50,7 +54,6 @@ const toggleSpinner = (displayStatus) => {
     }
 }
 const toggleResult = (displayStatus) => {
-    // document.getElementById('spinner').style.display = displayStatus + '!important';
     const container = document.getElementById('container')
     if (displayStatus === 'block') {
         container.classList.add('d-flex');
@@ -61,7 +64,7 @@ const toggleResult = (displayStatus) => {
     }
 }
 
-
+// Event handaler for enter button.
 document.getElementById('search').addEventListener('keydown', e => {
     if (e.keyCode === 13) {
         loadData()
