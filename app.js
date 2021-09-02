@@ -26,7 +26,7 @@ const displayData = (books, totalFound) => {
         div.classList.add('col');
         div.innerHTML = `
             <div class="card h-100">
-                <img src="${cover}" class="card-img-top">
+                <img src="${cover}" class="card-img-top" alt="${book.title}">
                 <div class="card-body">
                     <h3 class="card-title">${book.title}</h3>
                     <p><span class="text-info">Author:</span> ${book.author_name}</p>
